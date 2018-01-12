@@ -57,7 +57,7 @@ class Coin_Market_API():
 			url = self.api + endpoint + urllib.parse.urlencode({'convert':convert})
 		else:
 			url = self.api + endpoint
-		response = requests.get(url).json()
+		response = convert_response(requests.get(url).json())
 		if kwargs:
 			response = self.custom_response(response, kwargs)
 		return response
@@ -87,7 +87,7 @@ class Coin_Market_API():
 			url =self.api + self.endpoint1 + '?' + urllib.parse.urlencode({'start': start, 'limit':limit, 'convert':convert})
 		else:
 			url =self.api + self.endpoint1 + '?' + urllib.parse.urlencode({'start': start, 'limit':limit})
-		response = requests.get(url).json()
+		response = convert_response(requests.get(url).json())
 		#filter response by specific coin
 		if coin_id:
 			response = [coin for coin in response if coin['id'] in coin_id]
@@ -115,7 +115,7 @@ class Coin_Market_API():
 			url = self.api + self.endpoint2 + '?' + urllib.parse.urlencode({'convert':convert})
 		else:
 			url = self.api + self.endpoint2
-		response = requests.get(url).json()
+		response = convert_response(requests.get(url).json())
 		if kwargs:
 			response = self.custom_response(response, kwargs)
 		return response
@@ -171,6 +171,25 @@ class Coin_Market_API():
 					new_reponse.append(update_coin)
 			response = new_reponse
 		return response
+
+def convert_response(response):
+	'''
+	Originally the response only returns string values.
+	This function will attempt to convert number values into Floats
+	'''
+	if response != []:
+		for coin in response:
+			for key in coin.keys():	
+				try:
+					coin[key] = float(coin[key])	
+				except ValueError:
+					pass
+				except TypeError:
+					pass
+	return response
+					
+				
+				
 
 
 
