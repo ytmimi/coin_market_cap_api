@@ -4,7 +4,7 @@ Python wrapper around the coinmarketcap.com api
 ```python
 
 #Creating an instance of the API
-api = cmc_api.Coin_Market_API()
+api = Coin_Market_API()
 
 
 #A list of currency's that results can be converted to
@@ -33,9 +33,8 @@ api.market_fields
 'active_currencies', 'active_assets', 'active_markets', 'last_updated']
 '''
 
-
 #Get a current list of the top 100 tickers. To get a list of all tickers set limit=0
-#coin_ids = api.get_coin_id(start=0, limit=100)
+coin_ids = api.get_coin_id(start=0, limit=100)
 '''
 PRINT OUTPUT: A list of 100 coin id's. the size of the output can be adjusted by setting limit to a differnt int.
 ['bitcoin', 'ethereum', 'ripple', 'bitcoin-cash', 'cardano', 
@@ -54,9 +53,12 @@ PRINT OUTPUT: A list of 100 coin id's. the size of the output can be adjusted by
 'chainlink', 'digitalnote', 'quantstamp', 'gamecredits', 'zcoin', 'blockv']
 '''
 
+```
 
-#Get current data for a specific ticker
-#coin_data = api.get_single_coin_data(coin_list[2]) #ripple
+# Getting data for a single coin
+```python
+#Get current data for a specific coin
+coin_data = api.get_single_coin_data('ripple')
 '''
 PRINT OUTPUT: A list containing one dictionary.
 [{'id': 'ripple', 'name': 'Ripple', 'symbol': 'XRP', 
@@ -68,9 +70,9 @@ PRINT OUTPUT: A list containing one dictionary.
 '''
 
 
-#Get current data for a specific ticker with default datestring instead of a unix timestamp by
+#Get current data for a specific coin with default datestring instead of a unix timestamp by
 #passing unix_timestamp = False to the given function.
-#coin_data = api.get_single_coin_data(coin_list[2], unix_timestamp = False) #ripple
+coin_data = api.get_single_coin_data('ripple', unix_timestamp = False) 
 '''
 [{'id': 'ripple', 'name': 'Ripple', 'symbol': 'XRP',
 'rank': '3', 'price_usd': '1.89746', 'price_btc': '0.00013302',
@@ -82,7 +84,7 @@ PRINT OUTPUT: A list containing one dictionary.
 
 #Get current data for a specific ticker with custom datestring instead of a unix timestamp by 
 #passing timestamp_format and setting it equal to an appropriate datetime formate code. 
-#coin_data = api.get_single_coin_data(coin_list[2], timestamp_format='%Y %I:%M %p') #ripple
+coin_data = api.get_single_coin_data('ripple', timestamp_format='%Y %I:%M %p')
 '''
 PRINT OUTPUT: A list containing one dictionary. Note that the 'last_updated' field is a date string
 [{'id': 'ripple', 'name': 'Ripple', 'symbol': 'XRP',
@@ -94,9 +96,10 @@ PRINT OUTPUT: A list containing one dictionary. Note that the 'last_updated' fie
 '''
 
 
-#Get current data for a specific ticker while excluding feilds that you arent interest in
-# exclude = ['percent_change_1h', 'percent_change_24h', 'percent_change_7d', 'last_updated']
-# coin_data = api.get_single_coin_data(coin_list[2], excluded_fields=exclude) #ripple
+#Get current data for a specific ticker while excluding feilds that you aren't interest in
+#by passing excluded_fields = [LIST OF FIELDS TO EXCLUDE] 
+exclude = ['percent_change_1h', 'percent_change_24h', 'percent_change_7d', 'last_updated']
+coin_data = api.get_single_coin_data('ripple', excluded_fields=exclude)
 '''
 PRINT OUTPUT: A list containing a dictionary, which does not include the items specified in exclude
 [{'id': 'ripple', 'name': 'Ripple', 'symbol': 'XRP', 
@@ -108,16 +111,21 @@ PRINT OUTPUT: A list containing a dictionary, which does not include the items s
 
 
 #Get current data for a specific ticker while only including feilds that you are interest in
-# include = ['id', 'name', 'symbol', 'rank', 'available_supply', 'total_supply',]
-# coin_data = api.get_single_coin_data(coin_list[2], include_only=include) #ripple
+#by passing include_only = [LIST OF FIELDS TO RETURN]
+include = ['id', 'name', 'symbol', 'rank', 'available_supply', 'total_supply',]
+coin_data = api.get_single_coin_data('ripple', include_only=include) 
 '''
+PRINT OUTPUT
 [{'id': 'ripple', 'name': 'Ripple', 'symbol': 'XRP', 
 'rank': '3', 'available_supply': '38739142811.0', 'total_supply': '99993093880.0'}]
 '''
+```
 
+# Requesting data for more than one coin
+```python
 
 #Get current data for more than one coin 
-#bulck_data = api.get_bulck_coin_data(limit=2)
+bulck_data = api.get_bulck_coin_data(limit=2)
 '''
 PRINT OUTPUT: A list containing data on the top 2 coins
 [{'id': 'bitcoin', 'name': 'Bitcoin', 'symbol': 'BTC', 'rank': '1', 'price_usd': '14413.5',
@@ -135,7 +143,7 @@ PRINT OUTPUT: A list containing data on the top 2 coins
 #when requesting data for more than one coin, custom time format can be applied by
 #passing timestamp_format and setting it equal to an appropriate datetime formate code
 #passing unix_timestamp = False will result in the default date fromat string.
-#bulck_data = api.get_bulck_coin_data(limit=2, timestamp_format='%Y %I:%M %p')
+bulck_data = api.get_bulck_coin_data(limit=2, timestamp_format='%Y %I:%M %p')
 '''
 PRINT OUTPUT: A list containing data on multiple coins where 'last_updated' is a date string
 [{'id': 'bitcoin', 'name': 'Bitcoin', 'symbol': 'BTC', 'rank': '1', 'price_usd': '14337.6',
@@ -150,8 +158,8 @@ PRINT OUTPUT: A list containing data on multiple coins where 'last_updated' is a
 '''
 
 
-#specific coin id's can also be passed as *args when requesting data for more than one coin: coin_list[7]='iota' coin_list[15]='bitcoin-gold'
-#bulck_data = api.get_bulck_coin_data(coin_list[7], coin_list[15])
+#specific coin id's can also be passed as *args when requesting data for more than one coin. 
+bulck_data = api.get_bulck_coin_data('iota' , 'bitcoin-gold')
 '''
 PRINT OUTPUT:
 [{'id': 'iota', 'name': 'IOTA', 'symbol': 'MIOTA', 'rank': '8', 'price_usd': '3.48527',
@@ -167,16 +175,17 @@ PRINT OUTPUT:
 
 
 #Note: the coin id's you're searching for have to be within the limit of your request otherwise an empty list will be returned.
-#In the previous example the default limit of 100 ensures that coin_list[7] and coin_list[15] are included in the results
-#bulck_data = api.get_bulck_coin_data(coin_list[7], coin_list[8],limit=5,)
+#In the previous example the default limit of 100 almost ensures that 'iota' and 'bitcoin-gold' are included in the results
+#because both coins are ranked high on coinmarketcap.com.
+bulck_data = api.get_bulck_coin_data('iota', 'bitcoin-gold',limit=5,)
 '''
 PRINT OUTPUT: []
 '''
 
 
 #A list of fields to exclude can also be specified when requesting data on more than one coin.
-# exclude = ['rank', 'max_supply', 'percent_change_1h', 'percent_change_24h', 'percent_change_7d', 'last_updated']
-# bulck_data = api.get_bulck_coin_data(coin_list[7], coin_list[15], excluded_fields=exclude)
+exclude = ['rank', 'max_supply', 'percent_change_1h', 'percent_change_24h', 'percent_change_7d', 'last_updated']
+bulck_data = api.get_bulck_coin_data('iota', 'bitcoin-gold', excluded_fields=exclude)
 '''
 PRINT OUTPUT: A list of multiple coins which does not include fields specified in exclude
 [[{'id': 'iota', 'name': 'IOTA', 'symbol': 'MIOTA', 'price_usd': '3.49379', 
@@ -191,8 +200,8 @@ PRINT OUTPUT: A list of multiple coins which does not include fields specified i
 
 #A list of fields to include can be passed to ensure only those feilds are returned for each coin
 #by passing include_only and a list of values
-# include = ['id', 'name', 'symbol', 'price_usd', 'last_updated']
-# bulck_data = api.get_bulck_coin_data(coin_list[7], coin_list[15], include_only=include, unix_timestamp=False)
+include = ['id', 'name', 'symbol', 'price_usd', 'last_updated']
+bulck_data = api.get_bulck_coin_data('iota', 'bitcoin-gold', include_only=include, unix_timestamp=False)
 '''
 PRINT OUTPUT: NOTE that other **kwargs can be combined
 [{'id': 'iota', 'name': 'IOTA', 'symbol': 'MIOTA', 
