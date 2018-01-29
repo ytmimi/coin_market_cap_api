@@ -5,14 +5,14 @@ import pandas as pd
 import datetime as dt
 
 
-def start_and_end(offset):
+def start_and_end(offset=0):
 	'''
-	offset: Should be a datetime.timedelta object specifying 
+	offset: Should be an int specifying the number of days between today and the start day
 	returns the start and end dates as strings formated in YYYYMMDD form.
 	'''
 	dt_format = '%Y%m%d'
 	today = dt.date.today()
-	begging = today - offset
+	begging = today - dt.timedelta(days=offset)
 	end = dt.date.strftime(today, dt_format)
 	start = dt.date.strftime(begging, dt_format)
 	return [start, end]
@@ -24,6 +24,8 @@ class Historical_Data():
 	A web scraper that gets some historical data from the coinmarketcap.com website.
 	The data only includes daily Open, High, Low, Close, Volume, and Market-Cap figures.
 	Data for some coins may be incomplete.
+	Currency in USD 
+	Open/Close in UTC time
 	'''
 	def __init__(self, coin_id):
 		self.coin_id = coin_id
@@ -65,31 +67,50 @@ class Historical_Data():
 		return df
 
 	def last_7_days(self):
-		dates = start_and_end(dt.timedelta(days=7))
+		dates = start_and_end(7)
 		url = self.url +'?start={}&end={}'.format(dates[0], dates[1])
 		return self.generate_table(url)
 
 	def last_30_days(self):
-		dates = start_and_end(dt.timedelta(days=30))
+		dates = start_and_end(30)
 		url = self.url +'?start={}&end={}'.format(dates[0], dates[1])
 		return self.generate_table(url)
 
 	def last_3_months(self):
 		#a month is estimated to have 30 days
-		dates = start_and_end(dt.timedelta(days=90))
+		dates = start_and_end(90)
+		url = self.url +'?start={}&end={}'.format(dates[0], dates[1])
 		return self.generate_table(url)
 
 	def last_12_months(self):
 		#a month is estimated to have 30 days
-		dates = start_and_end(dt.timedelta(days=360))
+		dates = start_and_end(360)
+		url = self.url +'?start={}&end={}'.format(dates[0], dates[1])
 		return self.generate_table(url)
 
+	def year_to_date(self):
+		dates = start_and_end()
+		#gets the first 4 character from date[1], which contain the current year.
+		bgn_of_year = '{}0101'.format(dates[1][:4])
+		url = self.url +'?start={}&end={}'.format(bgn_of_year, dates[1])
+		return self.generate_table(url)
 
+	def custom_range(self, start, end=dt.date.strftime(dt.date.today(), '%Y%m%d')):
+		'''
+		start: A date given as a string in the form YYYYMMDD
+		end:   A date given as a string in the form YYYYMMDD
+		       defaults to the current date
+		'''
+		url = self.url +'?start={}&end={}'.format(start, end)
+		return self.generate_table(url)
 
-if __name__ == '__main__':
-	h = Historical_Data('ethereum').last_30_days()
-	print(h)
-
+# if __name__ == '__main__':
+# 	h = Historical_Data('ethereum')
+# 	print(h.year_to_date())
+# 	print('*'*50)
+# 	cr = h.custom_range('20160522')
+# 	print(cr.head())
+# 	print(cr.tail())
 
 
 		
