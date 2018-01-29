@@ -4,6 +4,21 @@ from collections import OrderedDict
 import pandas as pd
 import datetime as dt
 
+
+def start_and_end(offset):
+	'''
+	offset: Should be a datetime.timedelta object specifying 
+	returns the start and end dates as strings formated in YYYYMMDD form.
+	'''
+	dt_format = '%Y%m%d'
+	today = dt.date.today()
+	begging = today - offset
+	end = dt.date.strftime(today, dt_format)
+	start = dt.date.strftime(begging, dt_format)
+	return [start, end]
+
+
+
 class Historical_Data():
 	'''
 	A web scraper that gets some historical data from the coinmarketcap.com website.
@@ -11,16 +26,17 @@ class Historical_Data():
 	Data for some coins may be incomplete.
 	'''
 	def __init__(self, coin_id):
-		self.url = 'https://coinmarketcap.com/currencies/{}/historical-data/'.format(coin_id)
-		self.request = requests.get(self.url).text
-		self.data_table = self.generate_table()
+		self.coin_id = coin_id
+		self.url = 'https://coinmarketcap.com/currencies/{}/historical-data/'.format(self.coin_id)
 
-	def __str__(self, rows=5):
-		return '{}'.format(self.data_table.head(rows))
 		
-	def generate_table(self):
+	def generate_table(self, url=''):
+		if url != '':
+			request = requests.get(url).text
+		else:
+			request = requests.get(self.url).text
 		#Beautiful soup object
-		soup = BeautifulSoup(self.request, 'html.parser')
+		soup = BeautifulSoup(request, 'html.parser')
 		#Empty OrderdDict
 		table_data = OrderedDict()
 		#first element found in find_all
@@ -48,6 +64,31 @@ class Historical_Data():
 		df.set_index(table_keys[0], inplace=True)
 		return df
 
+	def last_7_days(self):
+		dates = start_and_end(dt.timedelta(days=7))
+		url = self.url +'?start={}&end={}'.format(dates[0], dates[1])
+		return self.generate_table(url)
+
+	def last_30_days(self):
+		dates = start_and_end(dt.timedelta(days=30))
+		url = self.url +'?start={}&end={}'.format(dates[0], dates[1])
+		return self.generate_table(url)
+
+	def last_3_months(self):
+		#a month is estimated to have 30 days
+		dates = start_and_end(dt.timedelta(days=90))
+		return self.generate_table(url)
+
+	def last_12_months(self):
+		#a month is estimated to have 30 days
+		dates = start_and_end(dt.timedelta(days=360))
+		return self.generate_table(url)
+
+
+
+if __name__ == '__main__':
+	h = Historical_Data('ethereum').last_30_days()
+	print(h)
 
 
 
