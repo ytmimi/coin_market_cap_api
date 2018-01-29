@@ -62,11 +62,11 @@ coin_data = api.get_single_coin_data('ripple')
 '''
 PRINT OUTPUT: A list containing one dictionary.
 [{'id': 'ripple', 'name': 'Ripple', 'symbol': 'XRP', 
-'rank': '3', 'price_usd': '1.90375', 'price_btc': '0.00013334', 
-'24h_volume_usd': '3888060000.0', 'market_cap_usd': '73749643126.0', 
-'available_supply': '38739142811.0', 'total_supply': '99993093880.0', 
-'max_supply': '100000000000', 'percent_change_1h': '-5.29', 'percent_change_24h': '-21.03', 
-'percent_change_7d': '-27.32', 'last_updated': '1515562440'}]
+'rank': 3, 'price_usd': 1.90375, 'price_btc': 0.00013334, 
+'24h_volume_usd': 3888060000.0, 'market_cap_usd': 73749643126.0, 
+'available_supply': 38739142811.0, 'total_supply': 99993093880.0, 
+'max_supply': 100000000000, 'percent_change_1h': -5.29, 
+'percent_change_24h': -21.03, 'percent_change_7d': -27.32, 'last_updated': 1515562440}]
 '''
 
 
@@ -75,11 +75,11 @@ PRINT OUTPUT: A list containing one dictionary.
 coin_data = api.get_single_coin_data('ripple', unix_timestamp = False) 
 '''
 [{'id': 'ripple', 'name': 'Ripple', 'symbol': 'XRP',
-'rank': '3', 'price_usd': '1.89746', 'price_btc': '0.00013302',
-'24h_volume_usd': '3891700000.0', 'market_cap_usd': '73505973918.0',
-'available_supply': '38739142811.0', 'total_supply': '99993093880.0',
-'max_supply': '100000000000', 'percent_change_1h': '-5.37', 'percent_change_24h': '-21.21',
-'percent_change_7d': '-27.62', 'last_updated': '01/10/2018 12:39:05 AM'}]
+'rank': 3, 'price_usd': 1.89746, 'price_btc': 0.00013302,
+'24h_volume_usd': 3891700000.0, 'market_cap_usd': 73505973918.0,
+'available_supply': 38739142811.0, 'total_supply': 99993093880.0,
+'max_supply': 100000000000, 'percent_change_1h': -5.37, 'percent_change_24h': -21.21,
+'percent_change_7d': -27.62, 'last_updated': '01/10/2018 12:39:05 AM'}]
 '''
 
 #Get current data for a specific ticker with custom datestring instead of a unix timestamp by 
@@ -88,11 +88,11 @@ coin_data = api.get_single_coin_data('ripple', timestamp_format='%Y %I:%M %p')
 '''
 PRINT OUTPUT: A list containing one dictionary. Note that the 'last_updated' field is a date string
 [{'id': 'ripple', 'name': 'Ripple', 'symbol': 'XRP',
-'rank': '3', 'price_usd': '1.89746', 'price_btc': '0.00013302',
-'24h_volume_usd': '3891700000.0', 'market_cap_usd': '73505973918.0',
-'available_supply': '38739142811.0', 'total_supply': '99993093880.0',
-'max_supply': '100000000000', 'percent_change_1h': '-5.37', 'percent_change_24h': '-21.21',
-'percent_change_7d': '-27.62', 'last_updated': '2018 12:39 AM'}]
+'rank': 3, 'price_usd': 1.89746, 'price_btc': 0.00013302,
+'24h_volume_usd': 3891700000.0, 'market_cap_usd': 73505973918.0,
+'available_supply': 38739142811.0, 'total_supply': 99993093880.0,
+'max_supply': 100000000000, 'percent_change_1h': -5.37, 'percent_change_24h': -21.21,
+'percent_change_7d': -27.62, 'last_updated': '2018 12:39 AM'}]
 '''
 
 
@@ -103,10 +103,10 @@ coin_data = api.get_single_coin_data('ripple', excluded_fields=exclude)
 '''
 PRINT OUTPUT: A list containing a dictionary, which does not include the items specified in exclude
 [{'id': 'ripple', 'name': 'Ripple', 'symbol': 'XRP', 
-'rank': '3', 'price_usd': '1.92182', 'price_btc': '0.00013334', 
-'24h_volume_usd': '3953010000.0', 'market_cap_usd': '74449659437.0', 
-'available_supply': '38739142811.0', 'total_supply': '99993093880.0', 
-'max_supply': '100000000000'}]
+'rank': 3, 'price_usd': 1.92182, 'price_btc': 0.00013334, 
+'24h_volume_usd': 3953010000.0, 'market_cap_usd': 74449659437.0, 
+'available_supply': 38739142811.0, 'total_supply': 99993093880.0, 
+'max_supply': 100000000000}]
 '''
 
 
@@ -117,7 +117,7 @@ coin_data = api.get_single_coin_data('ripple', include_only=include)
 '''
 PRINT OUTPUT
 [{'id': 'ripple', 'name': 'Ripple', 'symbol': 'XRP', 
-'rank': '3', 'available_supply': '38739142811.0', 'total_supply': '99993093880.0'}]
+'rank': 3, 'available_supply': 38739142811.0, 'total_supply': 99993093880.0}]
 '''
 ```
 
@@ -128,15 +128,15 @@ PRINT OUTPUT
 bulck_data = api.get_bulck_coin_data(limit=2)
 '''
 PRINT OUTPUT: A list containing data on the top 2 coins
-[{'id': 'bitcoin', 'name': 'Bitcoin', 'symbol': 'BTC', 'rank': '1', 'price_usd': '14413.5',
-'price_btc': '1.0', '24h_volume_usd': '16973700000.0', 'market_cap_usd': '242048427862',
-'available_supply': '16793175.0', 'total_supply': '16793175.0', 'max_supply': '21000000.0',
-'percent_change_1h': '-0.09', 'percent_change_24h': '-5.71', 'percent_change_7d': '-5.25', 'last_updated': '1515563361'}, 
+[{'id': 'bitcoin', 'name': 'Bitcoin', 'symbol': 'BTC', 'rank': 1, 'price_usd': 14413.5,
+'price_btc': 1.0, '24h_volume_usd': 16973700000.0, 'market_cap_usd': 242048427862,
+'available_supply': 16793175.0, 'total_supply': 16793175.0, 'max_supply': 21000000.0,
+'percent_change_1h': -0.09, 'percent_change_24h': -5.71, 'percent_change_7d': -5.25, 'last_updated': 1515563361}, 
 
-{'id': 'ethereum', 'name': 'Ethereum', 'symbol': 'ETH', 'rank': '2', 'price_usd': '1369.78', 
-'price_btc': '0.0957777', '24h_volume_usd': '9317090000.0', 'market_cap_usd': '132709776049', 
-'available_supply': '96884008.0', 'total_supply': '96884008.0', 'max_supply': None, 
-'percent_change_1h': '-2.3', 'percent_change_24h': '13.13', 'percent_change_7d': '53.87', 'last_updated': '1515563349'}]
+{'id': 'ethereum', 'name': 'Ethereum', 'symbol': 'ETH', 'rank': 2, 'price_usd': 1369.78, 
+'price_btc': 0.0957777, '24h_volume_usd': 9317090000.0, 'market_cap_usd': 132709776049, 
+'available_supply': 96884008.0, 'total_supply': 96884008.0, 'max_supply': None, 
+'percent_change_1h': -2.3, 'percent_change_24h': 13.13, 'percent_change_7d': 53.87, 'last_updated': 1515563349}]
 '''
 
 
@@ -146,15 +146,15 @@ PRINT OUTPUT: A list containing data on the top 2 coins
 bulck_data = api.get_bulck_coin_data(limit=2, timestamp_format='%Y %I:%M %p')
 '''
 PRINT OUTPUT: A list containing data on multiple coins where 'last_updated' is a date string
-[{'id': 'bitcoin', 'name': 'Bitcoin', 'symbol': 'BTC', 'rank': '1', 'price_usd': '14337.6',
-'price_btc': '1.0', '24h_volume_usd': '16971600000.0', 'market_cap_usd': '240773825880',
-'available_supply': '16793175.0', 'total_supply': '16793175.0', 'max_supply': '21000000.0', 
-'percent_change_1h': '-0.76', 'percent_change_24h': '-6.17', 'percent_change_7d': '-5.76', 'last_updated': '2018 12:54 AM'}, 
+[{'id': 'bitcoin', 'name': 'Bitcoin', 'symbol': 'BTC', 'rank': 1, 'price_usd': 14337.6,
+'price_btc': 1.0, '24h_volume_usd': 16971600000.0, 'market_cap_usd': 240773825880,
+'available_supply': 16793175.0, 'total_supply': 16793175.0, 'max_supply': 21000000.0, 
+'percent_change_1h': -0.76, 'percent_change_24h': -6.17, 'percent_change_7d': -5.76, 'last_updated': '2018 12:54 AM'}, 
 
-{'id': 'ethereum', 'name': 'Ethereum', 'symbol': 'ETH', 'rank': '2', 'price_usd': '1364.46', 
-'price_btc': '0.0954646', '24h_volume_usd': '9275140000.0', 'market_cap_usd': '132194353128', 
-'available_supply': '96884008.0', 'total_supply': '96884008.0', 'max_supply': None, 
-'percent_change_1h': '-2.83', 'percent_change_24h': '12.7', 'percent_change_7d': '53.27', 'last_updated': '2018 12:54 AM'}]
+{'id': 'ethereum', 'name': 'Ethereum', 'symbol': 'ETH', 'rank': 2, 'price_usd': 1364.46, 
+'price_btc': 0.0954646, '24h_volume_usd': 9275140000.0, 'market_cap_usd': 132194353128, 
+'available_supply': 96884008.0, 'total_supply': 96884008.0, 'max_supply': None, 
+'percent_change_1h': -2.83, 'percent_change_24h': 12.7, 'percent_change_7d': 53.27, 'last_updated': '2018 12:54 AM'}]
 '''
 
 
@@ -162,15 +162,15 @@ PRINT OUTPUT: A list containing data on multiple coins where 'last_updated' is a
 bulck_data = api.get_bulck_coin_data('iota' , 'bitcoin-gold')
 '''
 PRINT OUTPUT:
-[{'id': 'iota', 'name': 'IOTA', 'symbol': 'MIOTA', 'rank': '8', 'price_usd': '3.48527',
-'price_btc': '0.00024255', '24h_volume_usd': '196746000.0', 'market_cap_usd': '9687413509.0',
-'available_supply': '2779530283.0', 'total_supply': '2779530283.0', 'max_supply': '2779530283.0',
-'percent_change_1h': '-0.5', 'percent_change_24h': '-9.21', 'percent_change_7d': '-13.23', 'last_updated': '1515564850'},
+[{'id': 'iota', 'name': 'IOTA', 'symbol': 'MIOTA', 'rank': 8, 'price_usd': 3.48527,
+'price_btc': 0.00024255, '24h_volume_usd': 196746000.0, 'market_cap_usd': 9687413509.0,
+'available_supply': 2779530283.0, 'total_supply': 2779530283.0, 'max_supply': 2779530283.0,
+'percent_change_1h': -0.5, 'percent_change_24h': -9.21, 'percent_change_7d': -13.23, 'last_updated': 1515564850},
 
-{'id': 'bitcoin-gold', 'name': 'Bitcoin Gold', 'symbol': 'BTG', 'rank': '16', 'price_usd': '236.833',
-'price_btc': '0.0164818', '24h_volume_usd': '150892000.0', 'market_cap_usd': '3968231314.0', 
-'available_supply': '16755399.0', 'total_supply': '16855399.0', 'max_supply': '21000000.0',
-'percent_change_1h': '-0.76','percent_change_24h': '-2.05', 'percent_change_7d': '-14.05', 'last_updated': '1515564856'}]
+{'id': 'bitcoin-gold', 'name': 'Bitcoin Gold', 'symbol': 'BTG', 'rank': 16, 'price_usd': 236.833,
+'price_btc': 0.0164818, '24h_volume_usd': 150892000.0, 'market_cap_usd': '3968231314.0', 
+'available_supply': 16755399.0, 'total_supply': 16855399.0, 'max_supply': 21000000.0,
+'percent_change_1h': -0.76,'percent_change_24h': -2.05, 'percent_change_7d': -14.05, 'last_updated': 1515564856}]
 '''
 
 
@@ -188,13 +188,13 @@ exclude = ['rank', 'max_supply', 'percent_change_1h', 'percent_change_24h', 'per
 bulck_data = api.get_bulck_coin_data('iota', 'bitcoin-gold', excluded_fields=exclude)
 '''
 PRINT OUTPUT: A list of multiple coins which does not include fields specified in exclude
-[[{'id': 'iota', 'name': 'IOTA', 'symbol': 'MIOTA', 'price_usd': '3.49379', 
-'price_btc': '0.00024323', '24h_volume_usd': '196636000.0', 'market_cap_usd': '9711095107.0', 
-'available_supply': '2779530283.0', 'total_supply': '2779530283.0'}, 
+[[{'id': 'iota', 'name': 'IOTA', 'symbol': 'MIOTA', 'price_usd': 3.49379, 
+'price_btc': 0.00024323, '24h_volume_usd': 196636000.0, 'market_cap_usd': 9711095107.0, 
+'available_supply': 2779530283.0, 'total_supply': 2779530283.0}, 
 
-{'id': 'bitcoin-gold', 'name': 'Bitcoin Gold', 'symbol': 'BTG', 'price_usd': '235.755', 
-'price_btc': '0.0164127', '24h_volume_usd': '148037000.0', 'market_cap_usd': '3950171941.0', 
-'available_supply': '16755411.0', 'total_supply': '16855411.0'}]
+{'id': 'bitcoin-gold', 'name': 'Bitcoin Gold', 'symbol': 'BTG', 'price_usd': 235.755, 
+'price_btc': 0.0164127, '24h_volume_usd': 148037000.0, 'market_cap_usd': 3950171941.0, 
+'available_supply': 16755411.0, 'total_supply': 16855411.0}]
 '''
 
 
@@ -205,10 +205,10 @@ bulck_data = api.get_bulck_coin_data('iota', 'bitcoin-gold', include_only=includ
 '''
 PRINT OUTPUT: NOTE that other **kwargs can be combined
 [{'id': 'iota', 'name': 'IOTA', 'symbol': 'MIOTA', 
-'price_usd': '3.71713', 'last_updated': '01/10/2018 01:54:12 PM'}, 
+'price_usd': 3.71713, 'last_updated': '01/10/2018 01:54:12 PM'}, 
 
 {'id': 'bitcoin-gold', 'name': 'Bitcoin Gold', 'symbol': 'BTG', 
-'price_usd': '236.525', 'last_updated': '01/10/2018 01:54:16 PM'}]
+'price_usd': 236.525, 'last_updated': '01/10/2018 01:54:16 PM'}]
 '''
 
 ```
